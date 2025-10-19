@@ -31,7 +31,7 @@ async function initDirs() {
   try {
     await fs.mkdir(IMAGES_DIR, { recursive: true });
     await fs.mkdir(OVERLAYS_DIR, { recursive: true });
-    console.log('✅ Directories initialized');
+    console.log('Directories initialized');
   } catch (err) {
     console.error('Error creating directories:', err);
   }
@@ -46,7 +46,7 @@ async function getGuacamoleToken() {
     });
     return response.data.authToken;
   } catch (err) {
-    console.error('Failed to get Guacamole token:', err.message);
+    // console.error('Failed to get Guacamole token:', err.message);
     return null;
   }
 }
@@ -77,10 +77,10 @@ async function registerGuacamoleConnection(nodeId, nodeName, vncPort) {
       connectionData
     );
 
-    console.log(`✅ Registered ${nodeName} in Guacamole`);
+    console.log(` Registered ${nodeName} in Guacamole`);
     return response.data.identifier;
   } catch (err) {
-    console.error('Failed to register in Guacamole:', err.message);
+  //   console.error('Failed to register in Guacamole:', err.message);
     return null;
   }
 }
@@ -94,9 +94,9 @@ async function deleteGuacamoleConnection(connectionId) {
     await axios.delete(
       `${GUACAMOLE_URL}/api/session/data/postgresql/connections/${connectionId}?token=${token}`
     );
-    console.log(`✅ Deleted connection ${connectionId} from Guacamole`);
+    console.log(`Deleted connection ${connectionId} from Guacamole`);
   } catch (err) {
-    console.error('Failed to delete from Guacamole:', err.message);
+    // console.error('Failed to delete from Guacamole:', err.message);
   }
 }
 
@@ -144,7 +144,7 @@ app.post('/nodes', async (req, res) => {
         };
         
         nodes.set(nodeId, node);
-        console.log(`✅ Created node: ${name} (${nodeId})`);
+        console.log(` Created node: ${name} (${nodeId})`);
         res.json(node);
       } else {
         res.status(500).json({ error: 'Failed to create overlay disk' });
@@ -210,7 +210,7 @@ app.post('/nodes/:id/run', async (req, res) => {
     node.connectionId = connectionId;
     nodes.set(id, node);
 
-    console.log(`✅ Started node: ${node.name} (PID: ${qemuProcess.pid}, VNC: ${node.vncPort})`);
+    console.log(`Started node: ${node.name} (PID: ${qemuProcess.pid}, VNC: ${node.vncPort})`);
     
     res.json({
       ...node,
@@ -241,9 +241,9 @@ app.post('/nodes/:id/stop', async (req, res) => {
     if (node.process) {
       try {
         process.kill(node.process, 'SIGTERM');
-        console.log(`✅ Stopped node: ${node.name} (PID: ${node.process})`);
+        console.log(`Stopped node: ${node.name} (PID: ${node.process})`);
       } catch (err) {
-        console.error('Failed to kill process:', err.message);
+        // console.error('Failed to kill process:', err.message);
       }
     }
 
@@ -309,7 +309,7 @@ app.post('/nodes/:id/wipe', async (req, res) => {
         node.process = null;
         node.connectionId = null;
         nodes.set(id, node);
-        console.log(`✅ Wiped node: ${node.name}`);
+        console.log(`Wiped node: ${node.name}`);
         res.json(node);
       } else {
         res.status(500).json({ error: 'Failed to recreate overlay' });
@@ -352,7 +352,7 @@ app.delete('/nodes/:id', async (req, res) => {
     }
 
     nodes.delete(id);
-    console.log(`✅ Deleted node: ${node.name}`);
+    console.log(` Deleted node: ${node.name}`);
     res.json({ message: 'Node deleted successfully' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -367,7 +367,7 @@ app.get('/health', (req, res) => {
 // Initialize and start server
 initDirs().then(() => {
   app.listen(PORT, () => {
-    console.log(`🚀 Backend server running on http://localhost:${PORT}`);
-    console.log(`📊 Nodes: ${nodes.size}`);
+    console.log(` Backend server running on http://localhost:${PORT}`);
+    console.log(`Nodes: ${nodes.size}`);
   });
 });
