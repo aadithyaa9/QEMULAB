@@ -1,0 +1,286 @@
+/* === GLOBAL STYLES === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", "Poppins", sans-serif;
+  background: radial-gradient(circle at top left, #1a1c2c, #10121a);
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+/* === APP CONTAINER === */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  backdrop-filter: blur(8px);
+}
+
+/* === HEADER === */
+header {
+  background: linear-gradient(135deg, #4f46e5, #6d28d9);
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+header p {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  opacity: 0.9;
+}
+
+.test-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.test-btn:hover {
+  background: white;
+  color: #4f46e5;
+  transform: translateY(-2px);
+}
+
+/* === MAIN CONTAINER === */
+.container {
+  flex: 1;
+  max-width: 1300px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+}
+
+/* === CREATE SECTION === */
+.create-section {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 2.5rem;
+}
+
+.create-section h2 {
+  font-size: 1.6rem;
+  color: #a78bfa;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.create-form {
+  display: flex;
+  gap: 1rem;
+}
+
+.create-form input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.create-form input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #a78bfa;
+}
+
+.create-form input::placeholder {
+  color: #bbb;
+}
+
+.error {
+  color: #f87171;
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+}
+
+/* === NODE SECTION === */
+.nodes-section {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nodes-section h2 {
+  font-size: 1.6rem;
+  color: #93c5fd;
+  margin-bottom: 1.5rem;
+}
+
+/* === EMPTY STATE === */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #a1a1aa;
+}
+
+/* === GRID === */
+.nodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.5rem;
+}
+
+/* === NODE CARD === */
+.node-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.node-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+}
+
+/* === HEADER === */
+.node-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.node-header h3 {
+  font-size: 1.3rem;
+  color: #f8fafc;
+}
+
+.status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+
+.status-running {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.status-stopped {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+/* === NODE INFO === */
+.node-info {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.label {
+  color: #9ca3af;
+}
+
+.value {
+  font-family: "Courier New", monospace;
+  color: #f3f4f6;
+}
+
+/* === BUTTONS === */
+.node-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  flex: 1;
+  min-width: 90px;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.btn-info {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #d97706, #f59e0b);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+}
+
+/* === FOOTER === */
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #9ca3af;
+}
+
+footer p {
+  margin-top: 0.3rem;
+}
+
+@media (max-width: 768px) {
+  .create-form {
+    flex-direction: column;
+  }
+  .nodes-grid {
+    grid-template-columns: 1fr;
+  }
+}
