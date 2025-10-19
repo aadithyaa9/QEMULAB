@@ -5,10 +5,7 @@ QEMULAB is a full-stack application designed to create, manage, and interact wit
 ## 📹 Project Demo
 
 <!-- Replace the URL below with your video link (YouTube, Vimeo, or direct link to GIF/MP4) -->
-<video width="100%" controls>
-  <source src="./assets/simplescreenrecorder_deWy9KO5.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+![QEMULAB Demo](./assets/simplescreenrecorder_deWy9KO5.gif)
 <!-- OR for a GIF, use this format: -->
 <!-- ![QEMULAB Demo](./path/to/demo.gif) -->
 
