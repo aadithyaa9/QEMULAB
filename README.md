@@ -5,7 +5,11 @@ QEMULAB is a full-stack application designed to create, manage, and interact wit
 ## 📹 Project Demo
 
 <!-- Replace the URL below with your video link (YouTube, Vimeo, or direct link to GIF/MP4) -->
-![QEMULAB Demo](./assets/simplescreenrecorder_deWy9KO5.gif)
+## Project Demo
+
+[![QEMULAB Project Demo](./assets/thumbnail.png)](https://drive.google.com/your-share-link-here)
+
+*Click the thumbnail above to watch the full project demonstration video on Google Drive.*
 <!-- OR for a GIF, use this format: -->
 <!-- ![QEMULAB Demo](./path/to/demo.gif) -->
 
