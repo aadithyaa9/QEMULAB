@@ -1,14 +1,26 @@
-FROM node:18-alpine
+# Use a full-featured Debian base to get QEMU dependencies
+FROM node:18-bullseye  
 
 WORKDIR /app
 
+# Install QEMU
+RUN apt-get update && apt-get install -y \
+    qemu-system-x86 \
+    qemu-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install app dependencies
 COPY package*.json ./
 RUN npm install
 
-RUN apk add --no-cache qemu-system-x86_64 qemu-img
-
+# Copy the rest of the backend source code
 COPY . .
 
-EXPOSE 5000
+# Expose the Node.js API port
+EXPOSE 3001
 
-CMD ["npm", "start"]
+# Expose the VNC port range for QEMU VMs (for other containers on the network)
+EXPOSE 5900-5950
+
+# Run the server
+CMD ["node", "server.js"]

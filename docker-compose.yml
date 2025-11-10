@@ -1,3 +1,72 @@
+# version: '3.8'
+
+# services:
+#   # 1. PostgreSQL Database for Guacamole
+#   postgres:
+#     image: postgres:15
+#     container_name: guacamole-postgres
+#     environment:
+#       POSTGRES_DB: guacamole_db
+#       POSTGRES_USER: guacamole_user
+#       POSTGRES_PASSWORD: guacadmin
+#     volumes:
+#       - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+#       - postgres-data:/var/lib/postgresql/data
+#     networks:
+#       - lab-net
+#     healthcheck: 
+#       test: ["CMD-SHELL", "pg_isready -U guacamole_user -d guacamole_db"]
+#       interval: 5s
+#       timeout: 5s
+#       retries: 10
+
+#   # 2. Guacamole Daemon
+#   guacd:
+#     image: guacamole/guacd
+#     container_name: guacd
+#     networks:
+#       - lab-net
+
+#   # 3. Guacamole Web Client
+#   guacamole:
+#     image: guacamole/guacamole
+#     container_name: guacamole
+#     ports:
+#       - "8080:8080" # Access Guacamole UI from host
+#     environment:
+#       GUACD_HOSTNAME: guacd
+#       POSTGRESQL_HOSTNAME: postgres
+#       POSTGRESQL_DATABASE: guacamole_db
+#       POSTGRESQL_USERNAME: guacamole_user
+#       POSTGRESQL_PASSWORD: guacadmin
+#     depends_on:
+#       - guacd
+#       - postgres
+#     networks:
+#       - lab-net
+
+#   # 4. Your Backend Service
+#   backend:
+#     build: ./backend
+#     container_name: backend
+#     ports:
+#       - "3001:3001"
+#     volumes:
+#       - ./images:/app/images
+#       - ./overlays:/app/overlays
+#     # --- KVM SECTION REMOVED ---
+#     networks:
+#       - lab-net
+#     depends_on:
+#       postgres:
+#         condition: service_healthy
+
+# volumes:
+#   postgres-data:
+
+# networks:
+#   lab-net:
+
 version: '3.8'
 
 services:
@@ -9,14 +78,22 @@ services:
       POSTGRES_USER: guacamole_user
       POSTGRES_PASSWORD: guacadmin
     volumes:
-      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql:ro
       - postgres-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    networks:
+      - lab-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U guacamole_user -d guacamole_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   guacd:
     image: guacamole/guacd
     container_name: guacd
+    networks:
+      - lab-net
+    restart: unless-stopped
 
   guacamole:
     image: guacamole/guacamole
@@ -32,6 +109,39 @@ services:
     depends_on:
       - guacd
       - postgres
+    networks:
+      - lab-net
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "3001:3001"
+      - "23000-23050:23000-23050"
+    volumes:
+      - ./images:/app/images
+      - ./overlays:/app/overlays
+    # map host device explicitly
+    devices:
+      - /dev/kvm:/dev/kvm
+    # add the host /dev/kvm group so non-root processes can access it
+    group_add:
+      - "${KVM_GID}"
+    networks:
+      - lab-net
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    # optional: add a small healthcheck for backend if desired
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:3001/healthz"]
+    #   interval: 30s
+    #   timeout: 5s
+    #   retries: 3
 
 volumes:
   postgres-data:
+
+networks:
+  lab-net:
