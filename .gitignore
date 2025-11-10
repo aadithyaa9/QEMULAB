@@ -3,4 +3,5 @@ images/
 local_lab_overlays/
 overlays/
 initdb.sql.old
-intidb.sql
+intidb.sql.env
+.env
