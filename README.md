@@ -41,9 +41,9 @@
 
 QEMULAB is a powerful web-based virtual machine management platform that enables users to create, configure, and manage network topologies directly from their browser. Built on top of QEMU virtualization, it provides an intuitive drag-and-drop interface for designing network infrastructures with real virtual machines.
 
+### 🎥 Demo Video  
+[![QEMULAB Demo](https://img.youtube.com/vi/t_aa7fEJAm8/0.jpg)](https://www.youtube.com/watch?v=t_aa7fEJAm8 "Watch the QEMULAB demo video")  
 
-### 🎥 Video Tutorial
-[![QEMULAB Demo](https://img.youtube.com/vi/your-video-id/maxresdefault.jpg)]([https://youtu.be/your-video-id](https://www.youtube.com/watch?v=t_aa7fEJAm8))
 
 ---
 
