@@ -242,6 +242,15 @@ Ensure Docker Desktop has sufficient resources:
 - **CPUs**: 4 minimum (8 recommended)
 - **Disk**: 20GB minimum
 
+### ⚙️ Local configuration (.env)
+Create a local `.env` with the host KVM GID before starting the stack:
+
+
+```bash
+# Run in project root
+echo "KVM_GID=$(stat -c '%g' /dev/kvm)" > .env
+grep -qxF ".env" .gitignore || echo ".env" >> .gitignore
+```
 ### Step 4: Start Services
 
 ```bash
